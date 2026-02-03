@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Be My Valentine ❤️</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #ff4d6d, #ff8fab);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay {
+      background: rgba(0, 0, 0, 0.65);
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      max-width: 90%;
+      width: 420px;
+      color: #fff;
+      box-shadow: 0 0 25px rgba(255, 0, 100, 0.5);
+      animation: fadeIn 1.2s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 16px;
+      margin-bottom: 25px;
+      color: #ffccd5;
+    }
+
+    .buttons {
+      position: relative;
+      height: 90px;
+    }
+
+    button {
+      padding: 12px 28px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: #fff;
+    }
+
+    #yesBtn:hover {
+      background: #ff1f4b;
+      transform: scale(1.05);
+    }
+
+    #noBtn {
+      background: #555;
+      color: #fff;
+      position: absolute;
+      left: 200px;
+    }
+
+    .love-message {
+      display: none;
+      margin-top: 20px;
+      font-size: 18px;
+      color: #ffccd5;
+      animation: pop 0.6s ease;
+    }
+
+    .second-message {
+      display: none;
+      margin-top: 15px;
+      font-size: 17px;
+      color: #ffd1dc;
+      animation: pop 0.6s ease;
+    }
+
+    .final-screen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(135deg, #ff1f4b, #ff8fab);
+      color: white;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      z-index: 10;
+      animation: fadeIn 1s ease;
+    }
+
+    .final-screen h2 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .final-screen p {
+      font-size: 18px;
+      margin-bottom: 25px;
+    }
+
+    .signature {
+      margin-top: 25px;
+      font-size: 14px;
+      color: #ffb3c6;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay" id="mainCard">
+    <h1>💖 Candy, will you be my Valentine? 💖</h1>
+    <p>You make my world brighter every single day.</p>
+
+    <div class="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No 🙈</button>
+    </div>
+
+    <div class="love-message" id="loveMessage">
+      🥰 I knew it! You just made my heart the happiest in the world! 💘
+    </div>
+
+    <div class="second-message" id="secondMessage">
+      Candy, I don’t just want this Valentine — I want every Valentine with you. ❤️
+    </div>
+
+    <div class="signature">— Yours always, Nayza 💌</div>
+  </div>
+
+  <div class="final-screen" id="finalScreen">
+    <h2>💍 Will you be mine forever, Candy? 💍</h2>
+    <p>You are my today, my tomorrow, and my always. ❤️</p>
+    <div style="font-size: 40px;">💖 💖 💖</div>
+    <div class="signature" style="color: white;">— Nayza</div>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.getElementById('yesBtn');
+    const loveMessage = document.getElementById('loveMessage');
+    const secondMessage = document.getElementById('secondMessage');
+    const finalScreen = document.getElementById('finalScreen');
+    const mainCard = document.getElementById('mainCard');
+
+    noBtn.addEventListener('mouseenter', () => {
+      const container = document.querySelector('.buttons');
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = containerRect.width - btnRect.width;
+      const maxY = containerRect.height - btnRect.height;
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    });
+
+    yesBtn.addEventListener('click', () => {
+      loveMessage.style.display = 'block';
+      secondMessage.style.display = 'block';
+      yesBtn.style.display = 'none';
+      noBtn.style.display = 'none';
+
+      setTimeout(() => {
+        mainCard.style.display = 'none';
+        finalScreen.style.display = 'flex';
+      }, 3000);
+    });
+
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+      heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 7000);
+    }
+
+    setInterval(createHeart, 400);
+  </script>
+</body>
+</html>
